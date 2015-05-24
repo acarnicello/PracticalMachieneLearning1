@@ -1,0 +1,90 @@
+---
+title: "Practical Machine Learning Course Assignment"
+author: "Amanda Carnicello"
+date: "Tuesday, May 19, 2015"
+output: html_document
+---
+
+#Summary
+  
+  This report was to create a model to predict the way a person was lifting weights.  This then can be used to find out if the person was lifting them correctly.  The people performed lifting the dumbbells 5 different ways with one being the correct way.  The unneeded columns were taken out of the dataset and split into a pseudo training and test set for cross validation. They were put trough different models to see the accuracy.  The best model tried was the random forest model with no preprocessing.  The accuracy was found to be 100% for the new training sample and 98.5% for the new test sample. Thus the out of sample accuracy should be within 98.27% to 98.72% according to the 95% Confidence Interval.  This was then used to predict the way a person was doing the activity for 20 samples.
+
+##Data Processing
+  
+  The training and test data set was used in the paper  Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human '13) . Stuttgart, Germany: ACM SIGCHI, 2013.  The people in the study wore an accelerometer and asked to lift dumbbells 5 different ways with one way being correct and the others having a certain incorection.  A dataset of 19622 observations with 160 variables was obtained from the website shown in the code below. A dataset of 20 was also obtain with the same observations.  The datasets were loaded into r with all missing observations being changed to NA.  A new dataframe without the columns with NAs in them was made.  The columns with NAs only had a observations at certain intervals and thus would not be good to use with the ones that did not have these observations to predict the classe variable - or way the person did the activity.  The new dataframe was then saved again without the first 7 columns.  The first 7 columns dealt with the person, time and other variables that did not correlate to the way the person did the activity.  This now clean data set was then separated into a training (40%) and testing (60%) sets so that the model could be cross validated.  40% was put in the training set do to time constraints but still shown to be very good at modeling the test set.
+
+
+```{r,cache=TRUE,message=FALSE}
+ 
+#   download.file("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv","pml-training.csv")
+#   download.file("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv","pml-testing.csv")
+
+  library("caret")
+  pml.training <- read.csv("pml-training.csv",  na.strings=c("NA",""))
+  pml.testing <- read.csv("pml-testing.csv", na.strings=c("NA",""))
+
+  #columns 8-160 without nas are put into a new dataset for the training and test set
+  clean.pml.training <- pml.training[,colSums(is.na(pml.training))==0]
+  clean.pml.training <- clean.pml.training[8:ncol(clean.pml.training)]
+  clean.pml.testing <- pml.testing[,colSums(is.na(pml.testing))==0]
+  clean.pml.testing <- clean.pml.testing[8:ncol(clean.pml.testing)]
+
+  #training set seperated into new "training" and "test" set for cross validation.
+  set.seed(123)
+  inTrain <- createDataPartition(y=clean.pml.training$classe, p=.4,list=F)
+  Train.clean.pml.training<- clean.pml.training[inTrain,]
+  Test.clean.pml.training<-clean.pml.training[-inTrain,]
+
+```
+
+#Model Selection
+
+  lda, nb, rpart, gbm, and rf were all tried with and without pca to see which would be the best to use.  The best tried was rf without preproccessing.  The others are not included in this paper due to memory constraints of pandoc.  The others only had about 70% accuracy with the training set with the exception of naive Bayes being in the 40% range and gbm being in the 90% range but not as high as the random forest.
+```{r,cache=TRUE}
+
+  #lda<- train(classe~.,data=Train.clean.pml.training,method="lda")
+  #nb <- train(classe~.,data=Train.clean.pml.training,method="nb")
+  #rpart <- train(classe~.,data=Train.clean.pml.training,method="rpart")
+  #gbm <- train(classe~.,data=Train.clean.pml.training,method="gbm",verbose=F)
+   rf <- train(classe~.,data=Train.clean.pml.training,method="rf")
+
+```
+
+#Accuracy 
+
+  Below is the confusion Matrices of the new training set against the model prediction and the new test set against the model prediction.  The accuracy on the training set is 100% and 98.5% in the test set.  The out of sample accuracy should be within 98.27% to 98.72% with 95% confidence.
+```{r, cache=TRUE}
+
+
+  rfPredTrain <- predict(rf,Train.clean.pml.training)
+  trainMat <-confusionMatrix(rfPredTrain,Train.clean.pml.training$classe)
+  print(trainMat)
+  rfPredTest <- predict(rf,Test.clean.pml.training )
+  testMat <- confusionMatrix(rfPredTest, Test.clean.pml.training$classe)
+  print(testMat)
+
+```
+
+#Predicing 20 observation test set
+
+  The model is now used to predict another set of 20 obsvervations to turn into the Coursera Website.  The files are then written for each prediction.
+  
+  
+```{r}
+
+  FinalTestPred <- predict(rf,clean.pml.testing)
+  FinalTestPred <- as.character(FinalTestPred)
+
+  pml_write_files = function(x)
+  {
+  n = length(x)
+  for(i in 1:n)
+    {
+    filename = paste0("problem_id_",i,".txt")
+    write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+    }
+  }
+
+  pml_write_files(FinalTestPred)
+
+```
