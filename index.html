@@ -19,37 +19,232 @@
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+      <p>&lt;!DOCTYPE html&gt;</p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p></p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<p></p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p></p>
 
-<h3>
-<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p></p>Practical Machine Learning Course Assignment
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
 
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>
+</p>
 
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="https://help.github.com/pages">https://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+
+
+
+
+
+code{white-space: pre;}
+
+<p></p>
+
+
+
+
+  pre:not([class]) {
+    background-color: white;
+  }
+
+
+
+
+<p></p>
+
+<p></p>
+
+
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+
+
+<div>
+
+
+<div id="header">
+<h1>
+<a id="practical-machine-learning-course-assignment" class="anchor" href="#practical-machine-learning-course-assignment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Practical Machine Learning Course Assignment</h1>
+<h4>
+<a id="amanda-carnicello" class="anchor" href="#amanda-carnicello" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>Amanda Carnicello</em>
+</h4>
+<h4>
+<a id="tuesday-may-19-2015" class="anchor" href="#tuesday-may-19-2015" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>Tuesday, May 19, 2015</em>
+</h4>
+</div>
+
+<div id="summary">
+<h1>
+<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
+<p>This report was to create a model to predict the way a person was lifting weights. This then can be used to find out if the person was lifting them correctly. The people performed lifting the dumbbells 5 different ways with one being the correct way. The unneeded columns were taken out of the dataset and split into a pseudo training and test set for cross validation. They were put trough different models to see the accuracy. The best model tried was the random forest model with no preprocessing. The accuracy was found to be 100% for the new training sample and 98.5% for the new test sample. Thus the out of sample accuracy should be within 98.27% to 98.72% according to the 95% Confidence Interval. This was then used to predict the way a person was doing the activity for 20 samples.</p>
+<div id="data-processing">
+<h2>
+<a id="data-processing" class="anchor" href="#data-processing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Processing</h2>
+<p>The training and test data set was used in the paper Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human ’13) . Stuttgart, Germany: ACM SIGCHI, 2013. The people in the study wore an accelerometer and asked to lift dumbbells 5 different ways with one way being correct and the others having a certain incorection. A dataset of 19622 observations with 160 variables was obtained from the website shown in the code below. A dataset of 20 was also obtain with the same observations. The datasets were loaded into r with all missing observations being changed to NA. A new dataframe without the columns with NAs in them was made. The columns with NAs only had a observations at certain intervals and thus would not be good to use with the ones that did not have these observations to predict the classe variable - or way the person did the activity. The new dataframe was then saved again without the first 7 columns. The first 7 columns dealt with the person, time and other variables that did not correlate to the way the person did the activity. This now clean data set was then separated into a training (40%) and testing (60%) sets so that the model could be cross validated. 40% was put in the training set do to time constraints but still shown to be very good at modeling the test set.</p>
+<pre><code>#   download.file("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv","pml-training.csv")
+#   download.file("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv","pml-testing.csv")
+
+  library("caret")
+  pml.training &lt;- read.csv("pml-training.csv",  na.strings=c("NA",""))
+  pml.testing &lt;- read.csv("pml-testing.csv", na.strings=c("NA",""))
+
+  #columns 8-160 without nas are put into a new dataset for the training and test set
+  clean.pml.training &lt;- pml.training[,colSums(is.na(pml.training))==0]
+  clean.pml.training &lt;- clean.pml.training[8:ncol(clean.pml.training)]
+  clean.pml.testing &lt;- pml.testing[,colSums(is.na(pml.testing))==0]
+  clean.pml.testing &lt;- clean.pml.testing[8:ncol(clean.pml.testing)]
+
+  #training set seperated into new "training" and "test" set for cross validation.
+  set.seed(123)
+  inTrain &lt;- createDataPartition(y=clean.pml.training$classe, p=.4,list=F)
+  Train.clean.pml.training&lt;- clean.pml.training[inTrain,]
+  Test.clean.pml.training&lt;-clean.pml.training[-inTrain,]</code></pre>
+</div>
+
+<p></p>
+</div>
+
+<div id="model-selection">
+<h1>
+<a id="model-selection" class="anchor" href="#model-selection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model Selection</h1>
+<p>lda, nb, rpart, gbm, and rf were all tried with and without pca to see which would be the best to use. The best tried was rf without preproccessing. The others are not included in this paper due to memory constraints of pandoc. The others only had about 70% accuracy with the training set with the exception of naive Bayes being in the 40% range and gbm being in the 90% range but not as high as the random forest.</p>
+<pre><code>  #lda&lt;- train(classe~.,data=Train.clean.pml.training,method="lda")
+  #nb &lt;- train(classe~.,data=Train.clean.pml.training,method="nb")
+  #rpart &lt;- train(classe~.,data=Train.clean.pml.training,method="rpart")
+  #gbm &lt;- train(classe~.,data=Train.clean.pml.training,method="gbm",verbose=F)
+   rf &lt;- train(classe~.,data=Train.clean.pml.training,method="rf")</code></pre>
+<pre><code>## Loading required package: randomForest
+## randomForest 4.6-10
+## Type rfNews() to see new features/changes/bug fixes.</code></pre>
+</div>
+
+<div id="accuracy">
+<h1>
+<a id="accuracy" class="anchor" href="#accuracy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Accuracy</h1>
+<p>Below is the confusion Matrices of the new training set against the model prediction and the new test set against the model prediction. The accuracy on the training set is 100% and 98.5% in the test set. The out of sample accuracy should be within 98.27% to 98.72% with 95% confidence.</p>
+<pre><code>  rfPredTrain &lt;- predict(rf,Train.clean.pml.training)
+  trainMat &lt;-confusionMatrix(rfPredTrain,Train.clean.pml.training$classe)
+  print(trainMat)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 2232    0    0    0    0
+##          B    0 1519    0    0    0
+##          C    0    0 1369    0    0
+##          D    0    0    0 1287    0
+##          E    0    0    0    0 1443
+## 
+## Overall Statistics
+##                                      
+##                Accuracy : 1          
+##                  95% CI : (0.9995, 1)
+##     No Information Rate : 0.2843     
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16  
+##                                      
+##                   Kappa : 1          
+##  Mcnemar's Test P-Value : NA         
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity            1.0000   1.0000   1.0000   1.0000   1.0000
+## Specificity            1.0000   1.0000   1.0000   1.0000   1.0000
+## Pos Pred Value         1.0000   1.0000   1.0000   1.0000   1.0000
+## Neg Pred Value         1.0000   1.0000   1.0000   1.0000   1.0000
+## Prevalence             0.2843   0.1935   0.1744   0.1639   0.1838
+## Detection Rate         0.2843   0.1935   0.1744   0.1639   0.1838
+## Detection Prevalence   0.2843   0.1935   0.1744   0.1639   0.1838
+## Balanced Accuracy      1.0000   1.0000   1.0000   1.0000   1.0000</code></pre>
+<pre><code>  rfPredTest &lt;- predict(rf,Test.clean.pml.training )
+  testMat &lt;- confusionMatrix(rfPredTest, Test.clean.pml.training$classe)
+  print(testMat)</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 3341   33    0    0    0
+##          B    5 2206   17    0    4
+##          C    1   35 2028   46    8
+##          D    0    3    8 1881   12
+##          E    1    1    0    2 2140
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.985           
+##                  95% CI : (0.9827, 0.9872)
+##     No Information Rate : 0.2844          
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.9811          
+##  Mcnemar's Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity            0.9979   0.9684   0.9878   0.9751   0.9889
+## Specificity            0.9961   0.9973   0.9907   0.9977   0.9996
+## Pos Pred Value         0.9902   0.9884   0.9575   0.9879   0.9981
+## Neg Pred Value         0.9992   0.9925   0.9974   0.9951   0.9975
+## Prevalence             0.2844   0.1935   0.1744   0.1639   0.1838
+## Detection Rate         0.2838   0.1874   0.1723   0.1598   0.1818
+## Detection Prevalence   0.2866   0.1896   0.1799   0.1617   0.1821
+## Balanced Accuracy      0.9970   0.9828   0.9893   0.9864   0.9942</code></pre>
+</div>
+
+<div id="predicing-20-observation-test-set">
+<h1>
+<a id="predicing-20-observation-test-set" class="anchor" href="#predicing-20-observation-test-set" aria-hidden="true"><span class="octicon octicon-link"></span></a>Predicing 20 observation test set</h1>
+<p>The model is now used to predict another set of 20 obsvervations to turn into the Coursera Website. The files are then written for each prediction.</p>
+<pre><code>  FinalTestPred &lt;- predict(rf,clean.pml.testing)</code></pre>
+<pre><code>## Loading required package: randomForest
+## randomForest 4.6-10
+## Type rfNews() to see new features/changes/bug fixes.</code></pre>
+<pre><code>  FinalTestPred &lt;- as.character(FinalTestPred)
+
+  pml_write_files = function(x)
+  {
+  n = length(x)
+  for(i in 1:n)
+    {
+    filename = paste0("problem_id_",i,".txt")
+    write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+    }
+  }
+
+  pml_write_files(FinalTestPred)</code></pre>
+</div>
+
+<p></p>
+</div>
+
+
+
+
+
+
+
+<p>
+</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/acarnicello/PracticalMachieneLearning1">Practicalmachienelearning1</a> is maintained by <a href="https://github.com/acarnicello">acarnicello</a>.</span>
